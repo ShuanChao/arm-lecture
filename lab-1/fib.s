@@ -11,17 +11,20 @@
 fibonacci:
 	@ ADD/MODIFY CODE BELOW 
 	@ PROLOG
+	
 	push {r3, r4, r5, lr}
-	subs r4, r0, #0		; r4 = r0 - 0
-  	ble .L3			; if (r0 <= 0) goto .L3
-  	cmp r4, #1		; Compare r4 to 1
-  	beq .L4			; if (r4 == 1) goto .L4
-  	add r0, r4, #4294967295 ; r0 = r4 + 4294967295 (or #0xFFFFFFFF)
-  	bl fibonacci		; goto fibonacci @PC relative address
+	subs r4, r0, #0 @r4 = r0 - 0
+  	ble .L3	@if (r0 <= 0) goto .L3
+  		@ branch if less than or equal
+  	
+  	cmp r4, #1	@ Compare r4 to 1
+  	beq .L4		@ if (r4 == 1) goto .L4
+  	add r0, r4, #4294967295 @ r0 = r4 + 4294967295 (or #0xFFFFFFFF)
+  	bl fibonacci		@ goto fibonacci @PC relative address
 
-  	mov r5, r0		; r5 = r0
-  	sub r0, r4, #2	; r0 = r4 - 2
-  	bl fibonacci		; goto fibonacci @PC relative address
+  	mov r5, r0		@ r5 = r0
+  	sub r0, r4, #2	@r0 = r4 - 2
+  	bl fibonacci		@ goto fibonacci @PC relative address
 
 	adds r0, r5, r0
 
